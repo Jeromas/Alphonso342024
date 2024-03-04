@@ -1,0 +1,214 @@
+---
+title: "1Homework-Function-413"
+author: "Emmenta Janneh & Alphonso J. Saiewanne"
+date: "2024-01-29"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+1. Write a function that will find the sum of the natural log, the common log and a log of base 2 for any given positive number. Use your function to find answers for the first five even integers.  Show all details and structure of your function.  You should get five answers. The first two answers are 1.994177 and 3.988354. (Your output should show the other three)
+
+- Menthod 1
+
+```{r}
+# Function to calculate the sum of logarithms
+log_sum <- function(number) {
+  # Check if the number is positive
+  if (number <= 0) {
+    return("Input must be a positive number.")
+  }
+
+  # Calculate logarithms
+  natural_log <- log(number)
+  common_log <- log10(number)
+  log_base_2 <- log2(number)
+
+  # Calculate the sum
+  log_sum_result <- natural_log + common_log + log_base_2
+
+  # Return the result
+  return(log_sum_result)
+}
+
+# Calculate the sum for the first five even integers
+even_integers <- c(2, 4, 6, 8, 10)
+
+# Apply the function to each even integer and print the results
+for (num in even_integers) {
+  result <- log_sum(num)
+  cat("For", num, ":", result, "\n")
+}
+  
+```
+
+- Method 2
+
+```{r}
+log_sum <- function(num) {
+  natural_log <- log(num)
+  common_log <- log10(num)
+  base2_log <- log2(num)
+  total <- natural_log + common_log + base2_log
+  return(total)
+}
+```
+
+
+- Now, I can use this function to find the sum for the first five even integers:
+
+```{r}
+num_1 <- 2
+num_2 <- 4
+num_3 <- 6
+num_4 <- 8
+num_5 <- 10
+
+sum_1 <- log_sum(num_1)
+sum_2 <- log_sum(num_2)
+sum_3 <- log_sum(num_3)
+sum_4 <- log_sum(num_4)
+sum_5 <- log_sum(num_5)
+
+cat("The first two answers are:", sum_1, "and", sum_2, "\n")
+cat("The other three answers are:", sum_3, ",", sum_4, "and", sum_5)
+```
+
+
+2. Use the if-else structure to print the statement "This is a big number" if the square of a value is greater than or equal to 100 and the following statement is printed if the square of the number is less than 100, "This is not a big number”. Use and show values of assignment and if-else structures that will output both statements.
+
+
+- In this example, I have assigned the value **`10`** to the variable **`num`**. We then use the **`if-else`** structure to check if the square of **`num`** is greater than or equal to **100**. If it is, the statement **"This is a big number"** is printed. Otherwise, the statement **"This is not a big number"** is printed.
+
+```{r}
+num <- 10
+
+if(num^2 >= 100) {
+  print("This is a big number")
+} else {
+  print("This is not a big number")
+}
+```
+
+
+In this example, I have assigned the value **`9`** to the variable **`num`**. We then use the **`if-else`** structure to check if the square of **`num`** is greater than or equal to **100**. If it is, the statement **"This is a big number"** is printed. Otherwise, the statement **"This is not a big number"** is printed.
+
+```{r}
+num <- 9
+
+if(num^2 >= 100) {
+  print("This is a big number")
+} else {
+  print("This is not a big number")
+}
+```
+
+
+3. For the following if-else-if coding structure, make an adjustment so that it prints "Team A won"
+team_A <- 2 # Number of goals scored by Team A
+team_B <- 2# Number of goals scored by Team B
+
+```{r}
+team_A <- 2 # Number of goals scored by Team A
+team_B <- 1 # Number of goals scored by Team B
+
+if (team_A > team_B) {
+  print("Team A won")
+} else if (team_A < team_B) {
+  print("Team B won")
+} else {
+  print("Team A & B tied")
+}
+```
+
+4. Write an if- else if- else sequence of commands that will output the following statements and appropriate output; If a value is divisible by 3 and 5 the output statement is "divisible by Three and Five", If a value is divisible by 3 and 4, the output statement is "divisible by Three and Four, If a value is a number that does not fall into either category, the output statement should be  "neither".Use your function to show output statements for values 16, 45, and 24.
+
+
+```{r}
+check_divisibility <- function(value) {
+  if (value %% 3 == 0 && value %% 5 == 0) {
+    print("Divisible by Three and Five")
+  } else if (value %% 3 == 0 && value %% 4 == 0) {
+    print("Divisible by Three and Four")
+  } else {
+    print("Neither")
+  }
+}
+
+# Test the function with values 16, 45, and 24
+check_divisibility(16)
+check_divisibility(45)
+check_divisibility(24)
+
+
+```
+
+5. Use piping and a dplyr command show and use R code to produce the following modified mpg data table that contains only quantitative variables.
+
+- Now use the “special loop coding chunk”, illustrated in class, to produce the variance for all variables of the modified data table.
+
+
+```{r}
+## Assuming mpg is your data frame
+library(dplyr)
+
+# Filter only specific columns
+mpg_filtered <- mpg %>%
+  select(displ, cyl, cty, hwy)
+
+# Calculate the variance for each variable
+variances <- sapply(mpg_filtered, var)
+
+# Print the modified data table and variances
+print(mpg_filtered)
+print(variances)
+```
+
+
+6. Construct a for loop (as illustrated in the notes) that will produce the difference between the cube and the square for each prime number between 10 and 30.  (There are 6 answers. The first answer is 1210, your for loop coding should produce the other five answers)
+
+```{r}
+# Function to check if a number is prime
+is_prime <- function(n) {
+  if (n <= 1) return(FALSE)
+  if (n == 2) return(TRUE)
+  if (any(n %% 2:(floor(sqrt(n))) == 0)) return(FALSE)
+  return(TRUE)
+}
+
+# Initialize a vector to store the results
+results <- numeric(0)
+
+# Iterate through prime numbers between 10 and 30
+for (i in 10:30) {
+  if (is_prime(i)) {
+    # Calculate the difference between cube and square
+    result <- i^3 - i^2
+    # Append result to the vector
+    results <- c(results, result)
+  }
+}
+
+# Print the results
+print(results)
+```
+```
+
+# Example 7
+
+- (Let's write a function that will test for# divisibility)
+
+# Is 125 divisible by 3?
+
+# Method 1
+
